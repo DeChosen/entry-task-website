@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+
+	<html>
+		<head>
+			<title> User Home </title>
+			<link rel='stylesheet' type='text/css' href='{% static "css/user/user_home_style.css" %}' />	
+		</head>
+
+
+		<body>
+			<div id = "container">
+				<div id = 'head'>
+					<h1> Events </h1>
+				</div>
+			
+				<div id = 'logout'>
+					<form method = "POST" action = ''> {% csrf_token %}
+						<input type='submit' name='logout' value='Logout' />
+					</form>
+				</div>
+				
+				<div id = 'searchbar'>
+					<form method = "GET" action = ''> {% csrf_token %}
+						<input type="text" name='search_text' value='' />
+						<input type='submit' name='submit_search' value='Search Tags' />
+						<p id = error>{% if error_text %} {{error_text}}  {% endif %}</p>
+					</form>
+				<div>
+				
+			
+				<div id = "content">
+					{% for event in events %}
+						<p> 
+						<a href = '../event{{event.id}}/'>{{event.name}}</a> 
+						&nbsp; {{event.location}} &nbsp; {{event.date}}<br>
+						&nbsp; {{event.description}}</p>
+					{% endfor %}
+				</div>
+
+				<div id = "footer">
+					<form method = "GET" action = ''>
+						<input type = 'submit' name='page_button' value ='Prev Page' />
+						{% if page_num != 1 %}
+							<input type = 'submit' name='page_button' value = 'Home' />
+						{% endif %}
+						<input type = 'submit' name='page_button' value ='Next Page' />
+					</form>
+				</div>
+			</div>
+				
+		</body>
+
+
+	</html>

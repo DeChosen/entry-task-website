@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<title>{{current_event.name}}</title>
+	<link rel='stylesheet' type='text/css' href='{% static "css/admin/display_event_style.css" %}' />
+</head>
+
+
+<body class="body">
+	<div>
+	   {% block content %}
+		<h1> {{current_event.name}} </h1>
+		
+		<p> Participants: {{num_participants}} &nbsp;
+		{% for participant in current_event_participants %}
+			{{participant.participant_name}}
+		{% endfor %}
+		</p>
+
+		<p> Likes: {{num_likes}} &nbsp;
+		{% for like in current_event_likes %}
+			{{ like.liker_name }}
+		{% endfor %}
+		</p>
+		
+		<p id = 'tagtitle'> Tags: </p>
+		{% for tag in current_event_tags %}
+			<p id = 'tag'>{{tag.tag}}</p>
+			<form id='tagform'  method='POST' action=''>{% csrf_token %}
+				<input type='submit' name='delete_tag' value='Delete tag: {{tag.tag}}' />
+			</form>
+			{% if forloop.counter|divisibleby:5 %}
+				<br>
+			{% endif %}	
+		{% endfor %}
+		<p>
+		<form method = 'POST' action = ''> {% csrf_token %}
+			<input type='submit' name='add_tag_button' value='Add Tag'>
+		</form>
+		</p>
+		
+		{% if current_event_comments %}
+		<p>Comments:</p>
+		<hr>
+		{% for comment in current_event_comments %}
+			<form method="POST" action=''> {% csrf_token %}
+				<input type='submit' name='delete_comment' value='Delete Comment: {{comment.id}}' />
+			</form>
+			<p>{{comment.commenter_name}}</p> 
+			<p>Date: {{comment.date}}</p>
+			<p>{{comment.comment}}</p>
+			<hr>
+		{% endfor %}
+		{% endif %}
+		
+		{% if current_event_photos %}
+		<p>Photos:</p>
+		{% for photo in current_event_photos %}
+			<p><img src="/media/{{photo.image}}" height='300' /></p>
+			<form method="POST" action=''> {% csrf_token %}
+				<input input type='submit' name='delete_photo' value='Delete Photo: {{photo.id}}' />
+			</form>
+			<br>
+		{% endfor %}
+		{% endif %}
+		
+		<form method = 'POST' action = 'upload_photo/'> {% csrf_token %}
+			<input type = 'submit' name='upload_photo' value ='Upload Photo' />
+		</form>
+		<br>
+		
+		
+		<form method = 'POST' action = ''> {% csrf_token %}
+			<input type = 'submit' name='submit_button' value = 'Home' />
+			<input type = 'submit' name='submit_button' value = 'Delete Event {{event_id}}'
+		</form>
+	   {% endblock %}	
+	</div> 
+</body>
+
+</html>

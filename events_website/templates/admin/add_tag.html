@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title> Add Tag </title>
+		</head>
+	
+		<body>
+	
+			<h1> Add Tag </h1>
+			<form method = 'POST' action = ''> {% csrf_token %}
+				{{ tag_form.as_p }}
+
+				<input type = 'submit' name='submit_button' value= 'Back'/>
+				<input type = 'submit' name='submit_button' value= 'Submit' />
+			</form>
+		</body>
+
+
+	</html>

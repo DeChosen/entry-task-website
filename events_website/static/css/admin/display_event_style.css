@@ -1,0 +1,38 @@
+#tag{
+	display: inline-block;
+}
+
+#tagtitle{
+	display: inline-block;
+}
+
+#tagform {
+	display: inline;
+}
+
+input[name=delete_tag], input[name=delete_photo]{
+	padding: 0;
+	display: inline-block;
+	background-color: EEEEEE;
+	display: inline;
+	opacity: 0.7;
+}
+
+input[name=delete_tag]:hover {
+	opacity: 1;
+}
+
+input[name=delete_comment] {
+	background: url(/static/images/delete_image.png);
+	background-size: contain;
+	color: rgba(0, 0, 0, 0);
+	border: 0;
+	height: 20px;
+	width: 20px;
+	float: right;
+}
+
+input[name=delete_comment]:hover {
+	filter: brightness(50%);
+}
+

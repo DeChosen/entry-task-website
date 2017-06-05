@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+
+	<html>
+		<head>
+			<title> Search </title>
+		<style>
+			#container {
+				background-color: white;
+				width: 800px;
+		}
+
+			#content {
+				width: 600px;
+				float: right;
+				clear:both;
+				margin-left: auto;
+				margin-right: auto;
+		}					
+
+			#footer{
+				padding-up: 100px;
+				padding-left:240px;
+				clear:both;
+		}	
+		
+			#logout{
+				float:right;
+				padding-right:250px;
+		}
+		
+			#head{
+				float:left;
+				padding-left:300px;
+		}
+		
+
+		</style>
+		</head>
+
+
+		<body>
+			<div id = "container">
+				<div id = 'head'>
+					<h1> Events </h1>
+				</div>
+			
+				<div id = 'logout'>
+					<form method = "POST" action = ''> {% csrf_token %}
+						<input type='submit' name='logout' value='Logout' />
+					</form>
+				</div>
+				
+			
+				<div id = "content">
+					{% for event in events %}
+						<p>
+						<a href = '../../event{{event.id}}/'>{{event.name}}</a> 
+						&nbsp; {{event.location}} &nbsp; {{event.date}}<br>
+						&nbsp; {{event.description}}</p>
+					{% endfor %}
+					
+				</div>
+
+			</div>
+			
+			<div id = "footer">
+				<form method = "GET" action = ''>
+					<input type = 'submit' name='page_button' value ='Prev Page' />
+					<input type='submit' name='page_button' value='Home' />
+					<input type = 'submit' name='page_button' value ='Next Page' />
+				</form>
+			</div>
+
+				
+		</body>
+
+
+	</html>

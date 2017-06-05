@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>{{current_event.name}}</title>
+	<style>
+		#logout{
+			float:right;
+			padding-right:250px;
+		}
+		
+		#head{
+			float:left;
+		}
+		
+		#event_content{
+			clear:both;
+		}
+	</style>
+</head>
+
+<body>
+	<div id = 'container'>
+		<div id = 'header continer'>
+			<div id = 'head'>
+				<h1> {{ current_event.name }} </h1>
+			</div>
+			
+			<div id = 'logout'>
+				<form method = "POST" action = ''> {% csrf_token %}
+					<input type='submit' name='logout' value='Logout' />
+				</form>
+			</div>
+		</div>
+
+		<div id = 'event_content'>
+
+		<div id = 'info'>
+
+			<div id = 'participants'>
+			<form method = "POST" action = ""> {% csrf_token %}
+					<input type='submit' name='participate' value='Participate' />
+					<input type='submit' name='participate' value='Unparticipate' />
+			</form>
+				<p>Participants: {{num_participants}} &nbsp;
+					{% for participant in event_current_participants %}
+						asd {{ participant.participant_name }}
+					{% endfor %}
+				</p>
+			</div>
+			
+			<div id = 'like'>
+				<p> Likes: {{num_likes}} &nbsp;
+					{% for like in current_event_likes %}
+						{{ like.liker_name }}
+					{% endfor %}
+				</p>
+				
+				<form method = "POST" action = ""> {% csrf_token %}
+					<input type='submit' name='like' value='Like' />
+				</form>
+			</div>
+			
+			<div id = 'tags'>
+				<p> Tags: &nbsp;
+					{% for tag in current_event_tags %}
+						{{tag.tag}} &nbsp;
+					{% endfor %}
+				</p>
+			</div>
+
+			<div id =  'comments'>
+				{% if current_event_comments %}
+					<p>Comments:</p>
+					<hr>
+					{% for comment in current_event_comments %}
+						<p>Commenter: {{comment.commenter_name}}</p> 
+						<p>Date: {{comment.date}}</p>
+						<p>{{comment.comment}}</p>
+						<hr>
+					{% endfor %}
+				{% endif %}
+				
+				<form method = "POST" action = ""> {% csrf_token %}
+					<p>{{comment_form.as_p}}</p>
+					
+					<input type='submit' name='submit comment' value='Submit Comment' />
+				</form>
+			</div>
+
+			
+		</div>
+
+		<div id = 'buttons'>
+			<p></p>
+			<form method = "POST" action = '../'> {% csrf_token %}
+				<input type='submit' value='Home' />
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

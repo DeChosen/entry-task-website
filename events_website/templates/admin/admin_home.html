@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+
+	<html>
+		<head>
+			<title> Admin Home </title>
+			<link rel='stylesheet' type='text/css' href='{% static "css/admin/style.css" %}' />
+		</head>
+
+
+		<body>
+			<div id = 'logout'>
+					<form method = "POST" action = ''> {% csrf_token %}
+						<input type='submit' name='logout' value='Logout' />
+					</form>
+				</div>
+			
+			<div id = "container">
+				<div id = "nav">
+					<h3> Navigation </h3>
+					<ul>
+						<li><a class = Selected href=''> Home</a></li>
+						<li><a href ='../addevent/'>Add Events</a></li>
+					</ul>
+				</div>
+
+				<div id = "content">
+					{% for event in events %}
+						<p>{{event.id}}: 
+						<a href = '../event{{event.id}}/'>{{event.name}}</a> 
+						&nbsp; {{event.location}} &nbsp; {{event.date}}<br>
+						&nbsp; {{event.description}}</p>
+					{% endfor %}
+				</div>
+
+			</div>
+			
+			<div id = "footer">
+				<form method = "GET" action = ''>
+					<input type = 'submit' name='page_button' value ='Prev Page' />
+					{% if page_num > 1 %}
+						<input type = 'submit' name='page_button' value = 'Home' />
+					{% endif %}
+					<input type = 'submit' name='page_button' value ='Next Page' />
+				</form>
+			</div>
+
+				
+		</body>
+
+
+	</html>
