@@ -10,3 +10,5 @@ def addevent(number,startnumber=0, date='2017-06-02'):
         description = get_random_string(50, VALID_KEY_CHARS)
         instance = event(name=name, location=location, date=date, description=description)
         instance.save()
+
+#sometest
